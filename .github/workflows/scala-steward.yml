@@ -14,6 +14,7 @@ jobs:
     name: Scala Steward
     steps:
       - name: Install sbt
-        uses: sbt/setup-sbt@v1
-      - name: Scala Steward
-        uses: scala-steward-org/scala-steward-action@v2
+        uses: sbt/setup-sbt@v1.1.4
+      - name: Scala Steward GitHub Action
+        uses: scala-steward-org/scala-steward-action@v2.71.0
+            
