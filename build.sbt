@@ -1,6 +1,6 @@
 // ThisBuild / kantanProject := "codecs"
 ThisBuild / startYear     := Some(2016)
-ThisBuild / scalaVersion  := "2.13.8"
+ThisBuild / scalaVersion  := "2.13.15"
 
 lazy val jsModules: Seq[ProjectReference] = Seq(
   catsJS,
