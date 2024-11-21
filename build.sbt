@@ -1,4 +1,4 @@
-ThisBuild / kantanProject := "codecs"
+// ThisBuild / kantanProject := "codecs"
 ThisBuild / startYear     := Some(2016)
 ThisBuild / scalaVersion  := "2.13.8"
 
@@ -41,17 +41,18 @@ lazy val jvmModules: Seq[ProjectReference] = Seq(
 lazy val root = Project(id = "kantan-codecs", base = file("."))
   .settings(moduleName := "root")
   .enablePlugins(UnpublishedPlugin)
-  .aggregate((jsModules ++ jvmModules :+ (docs: ProjectReference)): _*)
+  // .aggregate((jsModules ++ jvmModules :+ (docs: ProjectReference)): _*)
+  .aggregate((jsModules ++ jvmModules): _*)
   .dependsOn(catsJVM, coreJVM, enumeratumJVM, libra, refinedJVM, scalazJVM, shapelessJVM)
 
-lazy val docs = project
-  .enablePlugins(DocumentationPlugin)
-  .settings(name := "docs")
-  .settings(
-    ScalaUnidoc / unidoc / unidocProjectFilter :=
-      inAnyProject -- inProjects(jsModules: _*)
-  )
-  .dependsOn(catsJVM, coreJVM, enumeratumJVM, libra, refinedJVM, scalazJVM, shapelessJVM, java8)
+// lazy val docs = project
+//   .enablePlugins(DocumentationPlugin)
+//   .settings(name := "docs")
+//   .settings(
+//     ScalaUnidoc / unidoc / unidocProjectFilter :=
+//       inAnyProject -- inProjects(jsModules: _*)
+//   )
+//   .dependsOn(catsJVM, coreJVM, enumeratumJVM, libra, refinedJVM, scalazJVM, shapelessJVM, java8)
 
 // - core projects -----------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
