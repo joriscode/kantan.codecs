@@ -13,7 +13,7 @@ jobs:
         os   :    [ubuntu-latest]
         scala:    [2.12.15, 2.13.8]
         platform: [jvm, js]
-        java :    [8, 11]
+        java :    [11]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
