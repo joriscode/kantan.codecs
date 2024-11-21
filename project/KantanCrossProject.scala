@@ -17,14 +17,14 @@
 package kantan.sbt
 package scalajs
 
-import KantanPlugin.autoImport.checkStyle
-import KantanPlugin.setLaws
-import com.github.tkawachi.doctest.DoctestPlugin.autoImport._
+// import KantanPlugin.autoImport.checkStyle
+// import KantanPlugin.setLaws
+// import com.github.tkawachi.doctest.DoctestPlugin.autoImport._
 import sbt._, Keys._
 import sbtcrossproject.CrossPlugin.autoImport._
 import sbtcrossproject.CrossProject
 import scalajscrossproject.ScalaJSCrossPlugin.autoImport._
-import scoverage.ScoverageKeys.coverageEnabled
+// import scoverage.ScoverageKeys.coverageEnabled
 import spray.boilerplate.BoilerplatePlugin.autoImport.boilerplateSource
 
 object KantanScalaJsPlugin extends AutoPlugin {
@@ -51,9 +51,9 @@ object KantanScalaJsPlugin extends AutoPlugin {
         .jsSettings(
           name := id + "-js",
           // Disables sbt-doctests in JS mode: https://github.com/tkawachi/sbt-doctest/issues/52
-          doctestGenTests := Seq.empty,
+          // doctestGenTests := Seq.empty,
           // Disables coverage in JS mode: https://github.com/scoverage/scalac-scoverage-plugin/issues/196
-          coverageEnabled := false,
+          // coverageEnabled := false,
           // Disables parallel execution in JS mode: https://github.com/scala-js/scala-js/issues/1546
           parallelExecution      := false,
           Test / testJS          := (Test / test).value,
