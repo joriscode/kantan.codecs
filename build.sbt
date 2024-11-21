@@ -23,11 +23,11 @@ lazy val jvmModules: Seq[ProjectReference] = Seq(
   coreJVM,
   enumeratumJVM,
   enumeratumLawsJVM,
-  java8,
-  java8Laws,
+  // java8,
+  // java8Laws,
   lawsJVM,
-  libra,
-  libraLaws,
+  // libra,
+  // libraLaws,
   refinedJVM,
   refinedLawsJVM,
   scalazJVM,
@@ -44,7 +44,7 @@ lazy val root = Project(id = "kantan-codecs", base = file("."))
     catsJVM,
     coreJVM,
     enumeratumJVM,
-    libra,
+    // libra,
     refinedJVM,
     scalazJVM,
     shapelessJVM,
@@ -215,6 +215,7 @@ lazy val libra = Project(id = "libra", base = file("libra/core"))
       "org.scalatest" %% "scalatest" % Versions.scalatest % "test",
     ),
   )
+  // .laws("libra-laws")
 
 lazy val libraLaws = Project(id = "libra-laws", base = file("libra/laws"))
   .settings(moduleName := "kantan.codecs-libra-laws", name := "libra-laws")
