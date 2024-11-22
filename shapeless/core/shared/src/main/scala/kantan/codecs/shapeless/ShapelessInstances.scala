@@ -21,6 +21,8 @@ import kantan.codecs.error.IsError
 import kantan.codecs.export.{DerivedDecoder, DerivedEncoder}
 import shapeless.{:+:, CNil, Coproduct, Generic, HList, Inl, Inr, LabelledGeneric, Lazy}
 
+import scala.language.experimental.macros
+
 /** Provides `Codec` instances for case classes and sum types.
   *
   * The purpose of this package is to let concrete `Codec` implementations (such as kantan.csv or

@@ -16,6 +16,9 @@
 
 package kantan.codecs
 
+import imp.summon
+import scala.language.experimental.macros
+
 /** Type class that represents data types that have an "empty" value.
   *
   * The purpose of this type class is to allow automatic derivation of [[Decoder]] for decoded types that might not

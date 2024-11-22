@@ -16,6 +16,9 @@
 
 package kantan.codecs.resource
 
+import imp.summon
+import scala.language.experimental.macros
+
 /** Type class for all types that can be closed. */
 trait Closeable[A] {
 

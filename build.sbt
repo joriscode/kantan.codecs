@@ -21,6 +21,8 @@ credentials += Credentials(
 
 publishMavenStyle := true
 
+// ThisBuild / scalacOptions ++= Seq("-language:experimental.macros")
+
 lazy val jsModules: Seq[ProjectReference] = Seq(
   catsJS,
   catsLawsJS,
@@ -76,9 +78,14 @@ lazy val root = Project(id = "kantan-codecs", base = file("."))
 lazy val core = kantanCrossProject("core", "core")
   .settings(moduleName := "kantan.codecs")
   .settings(
+    // scalacOptions ++= Seq("-language:experimental.macros"),
     libraryDependencies ++= Seq(
-      "org.spire-math" %%% "imp"       % Versions.imp,
-      "org.scalatest"  %%% "scalatest" % Versions.scalatest % "test"
+      // "org.typelevel" %% "spire" % "0.18.0",
+      // "org.spire-math" %%% "imp" % Versions.imp,
+      "org.spire-math" %% "imp" % "0.5.0" % "provided",
+      // if you want to use the imp.summon macro you'll need this too:
+      "org.scala-lang"  % "scala-reflect" % scalaVersion.value % "provided",
+      "org.scalatest" %%% "scalatest"     % Versions.scalatest % "test"
     )
   )
 
@@ -95,7 +102,10 @@ lazy val laws = kantanCrossProject("laws", "laws")
     libraryDependencies ++= Seq(
       "org.scalacheck" %%% "scalacheck"           % Versions.scalacheck,
       "org.scalatest"  %%% "scalatest"            % Versions.scalatest,
-      "org.typelevel"  %%% "discipline-scalatest" % Versions.disciplineScalatest
+      "org.typelevel"  %%% "discipline-scalatest" % Versions.disciplineScalatest,
+      "org.spire-math"  %% "imp"                  % "0.5.0" % "provided",
+      // if you want to use the imp.summon macro you'll need this too:
+      "org.scala-lang" % "scala-reflect" % scalaVersion.value % "provided"
     )
   )
 

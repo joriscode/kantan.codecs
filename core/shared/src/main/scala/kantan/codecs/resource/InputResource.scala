@@ -16,6 +16,9 @@
 
 package kantan.codecs.resource
 
+import imp.summon
+import scala.language.experimental.macros
+
 /** Provides instance summoning methods for [[InputResource]]. */
 object InputResource {
 

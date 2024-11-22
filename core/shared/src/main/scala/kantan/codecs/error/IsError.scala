@@ -16,6 +16,9 @@
 
 package kantan.codecs.error
 
+import imp.summon
+import scala.language.experimental.macros
+
 import kantan.codecs.ResultCompanion
 
 /** Type class for types that can be used as errors.

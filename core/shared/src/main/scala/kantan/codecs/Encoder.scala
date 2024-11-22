@@ -16,6 +16,9 @@
 
 package kantan.codecs
 
+import imp.summon
+import scala.language.experimental.macros
+
 import kantan.codecs.export.DerivedEncoder
 
 /** Type class for types that can be encoded into others.
