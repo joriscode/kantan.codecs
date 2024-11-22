@@ -1,6 +1,26 @@
 // ThisBuild / kantanProject := "codecs"
 ThisBuild / startYear := Some(2016)
 ThisBuild / scalaVersion := "2.13.15"
+ThisBuild / organization := "com.yourusername"
+ThisBuild / version := "0.1.0-SNAPSHOT"
+ThisBuild / publishTo := {
+  val ghOrg = "yourusername"
+  val ghRepo = "your-repo"
+  val ghToken = sys.env.get("GITHUB_TOKEN")
+  ghToken.map { token =>
+    val repo = s"https://maven.pkg.github.com/$ghOrg/$ghRepo"
+    "GitHub Packages" at repo
+  }
+}
+
+credentials += Credentials(
+  "GitHub Package Registry",
+  "maven.pkg.github.com",
+  sys.env.getOrElse("GITHUB_ACTOR", ""),
+  sys.env.getOrElse("GITHUB_TOKEN", "")
+)
+
+publishMavenStyle := true
 
 lazy val jsModules: Seq[ProjectReference] = Seq(
   catsJS,
