@@ -16,7 +16,7 @@
 
 package kantan.codecs.strings.java8
 
-import scala.reflect.macros.blackbox.Context
+import scala.reflect.macros.Context
 
 final class FormatLiteral(val sc: StringContext) extends AnyVal {
   def fmt(args: Any*): Format = macro FormatLiteral.fmtImpl
