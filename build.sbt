@@ -12,6 +12,8 @@ ThisBuild / publishTo := {
   }
 }
 
+ThisBuild / scalacOptions ++= LocalSettings.scalacOptions
+
 credentials += Credentials(
   "GitHub Package Registry",
   "maven.pkg.github.com",
@@ -78,6 +80,7 @@ lazy val root = Project(id = "kantan-codecs", base = file("."))
 lazy val core = kantanCrossProject("core", "core")
   .settings(moduleName := "kantan.codecs")
   .settings(
+    scalacOptions += "-Ymacro-debug-lite", // convenient to debug macro expansions
     // scalacOptions ++= Seq("-language:experimental.macros"),
     libraryDependencies ++= Seq(
       // "org.typelevel" %% "spire" % "0.18.0",
