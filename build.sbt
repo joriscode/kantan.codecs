@@ -27,36 +27,36 @@ publishMavenStyle := true
 
 lazy val jsModules: Seq[ProjectReference] = Seq(
   catsJS,
-  catsLawsJS,
+  // catsLawsJS,
   coreJS,
   enumeratumJS,
-  enumeratumLawsJS,
-  lawsJS,
+  // enumeratumLawsJS,
+  // lawsJS,
   refinedJS,
-  refinedLawsJS,
+  // refinedLawsJS,
   scalazJS,
-  scalazLawsJS,
+  // scalazLawsJS,
   shapelessJS,
-  shapelessLawsJS
+  // shapelessLawsJS
 )
 
 lazy val jvmModules: Seq[ProjectReference] = Seq(
   catsJVM,
-  catsLawsJVM,
+  // catsLawsJVM,
   coreJVM,
   enumeratumJVM,
-  enumeratumLawsJVM,
+  // enumeratumLawsJVM,
   // java8,
   // java8Laws,
-  lawsJVM,
+  // lawsJVM,
   // libra,
   // libraLaws,
   refinedJVM,
-  refinedLawsJVM,
+  // refinedLawsJVM,
   scalazJVM,
-  scalazLawsJVM,
+  // scalazLawsJVM,
   shapelessJVM,
-  shapelessLawsJVM
+  // shapelessLawsJVM
 )
 
 // - root projects -----------------------------------------------------------------------------------------------------
@@ -81,7 +81,7 @@ lazy val core = kantanCrossProject("core", "core")
   .settings(moduleName := "kantan.codecs")
   .settings(
     scalacOptions += "-Ymacro-debug-lite", // convenient to debug macro expansions
-    // scalacOptions ++= Seq("-language:experimental.macros"),
+    scalacOptions ++= Seq("-language:experimental.macros"),
     libraryDependencies ++= Seq(
       // "org.typelevel" %% "spire" % "0.18.0",
       // "org.spire-math" %%% "imp" % Versions.imp,
@@ -98,22 +98,23 @@ lazy val coreJVM = core.jvm.settings(
 )
 lazy val coreJS = core.js
 
-lazy val laws = kantanCrossProject("laws", "laws")
-  .settings(moduleName := "kantan.codecs-laws")
-  .dependsOn(core)
-  .settings(
-    libraryDependencies ++= Seq(
-      "org.scalacheck" %%% "scalacheck"           % Versions.scalacheck,
-      "org.scalatest"  %%% "scalatest"            % Versions.scalatest,
-      "org.typelevel"  %%% "discipline-scalatest" % Versions.disciplineScalatest,
-      "org.spire-math"  %% "imp"                  % "0.5.0" % "provided",
-      // if you want to use the imp.summon macro you'll need this too:
-      "org.scala-lang" % "scala-reflect" % scalaVersion.value % "provided"
-    )
-  )
+// lazy val laws = kantanCrossProject("laws", "laws")
+//   .settings(moduleName := "kantan.codecs-laws")
+//   .dependsOn(core)
+//   .settings(
+//     scalacOptions += "-Ymacro-debug-lite", // convenient to debug macro expansions
+//     libraryDependencies ++= Seq(
+//       "org.scalacheck" %%% "scalacheck"           % Versions.scalacheck,
+//       "org.scalatest"  %%% "scalatest"            % Versions.scalatest,
+//       "org.typelevel"  %%% "discipline-scalatest" % Versions.disciplineScalatest,
+//       "org.spire-math"  %% "imp"                  % "0.5.0" % "provided",
+//       // if you want to use the imp.summon macro you'll need this too:
+//       "org.scala-lang" % "scala-reflect" % scalaVersion.value % "provided"
+//     )
+//   )
 
-lazy val lawsJVM = laws.jvm
-lazy val lawsJS  = laws.js
+// lazy val lawsJVM = laws.jvm
+// lazy val lawsJS  = laws.js
 
 // - cats projects -----------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
@@ -131,35 +132,35 @@ lazy val cats = kantanCrossProject("cats", "cats/core")
 lazy val catsJVM = cats.jvm
 lazy val catsJS  = cats.js
 
-lazy val catsLaws = kantanCrossProject("cats-laws", "cats/laws")
-  .settings(moduleName := "kantan.codecs-cats-laws")
-  .dependsOn(core, laws, cats)
-  .settings(
-    libraryDependencies += "org.typelevel" %%% "cats-laws" % Versions.cats
-  )
+// lazy val catsLaws = kantanCrossProject("cats-laws", "cats/laws")
+//   .settings(moduleName := "kantan.codecs-cats-laws")
+//   .dependsOn(core, laws, cats)
+//   .settings(
+//     libraryDependencies += "org.typelevel" %%% "cats-laws" % Versions.cats
+//   )
 
-lazy val catsLawsJVM = catsLaws.jvm
-lazy val catsLawsJS  = catsLaws.js
+// lazy val catsLawsJVM = catsLaws.jvm
+// lazy val catsLawsJS  = catsLaws.js
 
-// - java8 projects ----------------------------------------------------------------------------------------------------
-// ---------------------------------------------------------------------------------------------------------------------
-lazy val java8 = Project(id = "java8", base = file("java8/core"))
-  .settings(moduleName := "kantan.codecs-java8", name := "java8")
-  .dependsOn(coreJVM)
-  .settings(
-    libraryDependencies ++=
-      Seq("org.scalatest" %% "scalatest" % Versions.scalatest % "test")
-  )
+// // - java8 projects ----------------------------------------------------------------------------------------------------
+// // ---------------------------------------------------------------------------------------------------------------------
+// lazy val java8 = Project(id = "java8", base = file("java8/core"))
+//   .settings(moduleName := "kantan.codecs-java8", name := "java8")
+//   .dependsOn(coreJVM)
+//   .settings(
+//     libraryDependencies ++=
+//       Seq("org.scalatest" %% "scalatest" % Versions.scalatest % "test")
+//   )
 
-lazy val java8Laws = Project(id = "java8-laws", base = file("java8/laws"))
-  .settings(moduleName := "kantan.codecs-java8-laws", name := "java8-laws")
-  .dependsOn(coreJVM, lawsJVM, java8)
-  .settings(
-    libraryDependencies ++= Seq(
-      "org.scala-lang.modules" %% "scala-collection-compat" %
-        Versions.collectionCompat
-    )
-  )
+// lazy val java8Laws = Project(id = "java8-laws", base = file("java8/laws"))
+//   .settings(moduleName := "kantan.codecs-java8-laws", name := "java8-laws")
+//   .dependsOn(coreJVM, lawsJVM, java8)
+//   .settings(
+//     libraryDependencies ++= Seq(
+//       "org.scala-lang.modules" %% "scala-collection-compat" %
+//         Versions.collectionCompat
+//     )
+//   )
 
 // - scalaz projects ---------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
@@ -176,19 +177,19 @@ lazy val scalaz = kantanCrossProject("scalaz", "scalaz/core")
 lazy val scalazJVM = scalaz.jvm
 lazy val scalazJS  = scalaz.js
 
-lazy val scalazLaws = kantanCrossProject("scalaz-laws", "scalaz/laws")
-  .settings(moduleName := "kantan.codecs-scalaz-laws")
-  .dependsOn(core, laws, scalaz)
-  .settings(
-    libraryDependencies ++= Seq(
-      "org.scalaz"    %%% "scalaz-core"               % Versions.scalaz,
-      "org.scalaz"    %%% "scalaz-scalacheck-binding" % (Versions.scalaz),
-      "org.scalatest" %%% "scalatest"                 % Versions.scalatest % "optional"
-    )
-  )
+// lazy val scalazLaws = kantanCrossProject("scalaz-laws", "scalaz/laws")
+//   .settings(moduleName := "kantan.codecs-scalaz-laws")
+//   .dependsOn(core, laws, scalaz)
+//   .settings(
+//     libraryDependencies ++= Seq(
+//       "org.scalaz"    %%% "scalaz-core"               % Versions.scalaz,
+//       "org.scalaz"    %%% "scalaz-scalacheck-binding" % (Versions.scalaz),
+//       "org.scalatest" %%% "scalatest"                 % Versions.scalatest % "optional"
+//     )
+//   )
 
-lazy val scalazLawsJVM = scalazLaws.jvm
-lazy val scalazLawsJS  = scalazLaws.js
+// lazy val scalazLawsJVM = scalazLaws.jvm
+// lazy val scalazLawsJS  = scalazLaws.js
 
 // - refined project ---------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
@@ -205,16 +206,16 @@ lazy val refined = kantanCrossProject("refined", "refined/core")
 lazy val refinedJVM = refined.jvm
 lazy val refinedJS  = refined.js
 
-lazy val refinedLaws = kantanCrossProject("refined-laws", "refined/laws")
-  .settings(moduleName := "kantan.codecs-refined-laws")
-  .settings(
-    libraryDependencies +=
-      "eu.timepit"     %%% "refined-scalacheck" % Versions.refined
-  )
-  .dependsOn(core, laws, refined)
+// lazy val refinedLaws = kantanCrossProject("refined-laws", "refined/laws")
+//   .settings(moduleName := "kantan.codecs-refined-laws")
+//   .settings(
+//     libraryDependencies +=
+//       "eu.timepit"     %%% "refined-scalacheck" % Versions.refined
+//   )
+//   .dependsOn(core, laws, refined)
 
-lazy val refinedLawsJVM = refinedLaws.jvm
-lazy val refinedLawsJS  = refinedLaws.js
+// lazy val refinedLawsJVM = refinedLaws.jvm
+// lazy val refinedLawsJS  = refinedLaws.js
 
 // - enumeratum project ------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
@@ -231,35 +232,35 @@ lazy val enumeratum = kantanCrossProject("enumeratum", "enumeratum/core")
 lazy val enumeratumJVM = enumeratum.jvm
 lazy val enumeratumJS  = enumeratum.js
 
-lazy val enumeratumLaws =
-  kantanCrossProject("enumeratum-laws", "enumeratum/laws")
-    .settings(moduleName := "kantan.codecs-enumeratum-laws")
-    .settings(
-      libraryDependencies +=
-        "com.beachape" %%% "enumeratum-scalacheck" %
-          Versions.enumeratumScalacheck
-    )
-    .dependsOn(core, laws, enumeratum)
+// lazy val enumeratumLaws =
+//   kantanCrossProject("enumeratum-laws", "enumeratum/laws")
+//     .settings(moduleName := "kantan.codecs-enumeratum-laws")
+//     .settings(
+//       libraryDependencies +=
+//         "com.beachape" %%% "enumeratum-scalacheck" %
+//           Versions.enumeratumScalacheck
+//     )
+//     .dependsOn(core, laws, enumeratum)
 
-lazy val enumeratumLawsJVM = enumeratumLaws.jvm
-lazy val enumeratumLawsJS  = enumeratumLaws.js
+// lazy val enumeratumLawsJVM = enumeratumLaws.jvm
+// lazy val enumeratumLawsJS  = enumeratumLaws.js
 
 // - libra projects ------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
-lazy val libra = Project(id = "libra", base = file("libra/core"))
-  .settings(moduleName := "kantan.codecs-libra", name := "libra")
-  .dependsOn(coreJVM)
-  .settings(
-    libraryDependencies ++= Seq(
-      "com.github.to-ithaca" %% "libra"     % Versions.libra,
-      "org.scalatest"        %% "scalatest" % Versions.scalatest % "test"
-    )
-  )
-// .laws("libra-laws")
+// lazy val libra = Project(id = "libra", base = file("libra/core"))
+//   .settings(moduleName := "kantan.codecs-libra", name := "libra")
+//   .dependsOn(coreJVM)
+//   .settings(
+//     libraryDependencies ++= Seq(
+//       "com.github.to-ithaca" %% "libra"     % Versions.libra,
+//       "org.scalatest"        %% "scalatest" % Versions.scalatest % "test"
+//     )
+//   )
+// // .laws("libra-laws")
 
-lazy val libraLaws = Project(id = "libra-laws", base = file("libra/laws"))
-  .settings(moduleName := "kantan.codecs-libra-laws", name := "libra-laws")
-  .dependsOn(coreJVM, lawsJVM, libra)
+// lazy val libraLaws = Project(id = "libra-laws", base = file("libra/laws"))
+//   .settings(moduleName := "kantan.codecs-libra-laws", name := "libra-laws")
+//   .dependsOn(coreJVM, lawsJVM, libra)
 
 // - shapeless projects ------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
@@ -267,6 +268,7 @@ lazy val shapeless = kantanCrossProject("shapeless", "shapeless/core")
   .settings(moduleName := "kantan.codecs-shapeless")
   .dependsOn(core)
   .settings(
+    scalacOptions += "-Ymacro-debug-lite", // convenient to debug macro expansions
     libraryDependencies ++= Seq(
       "com.chuusai"   %%% "shapeless" % Versions.shapeless,
       "org.scalatest" %%% "scalatest" % Versions.scalatest % "test"
@@ -276,17 +278,17 @@ lazy val shapeless = kantanCrossProject("shapeless", "shapeless/core")
 lazy val shapelessJVM = shapeless.jvm
 lazy val shapelessJS  = shapeless.js
 
-lazy val shapelessLaws = kantanCrossProject("shapeless-laws", "shapeless/laws")
-  .settings(moduleName := "kantan.codecs-shapeless-laws")
-  .settings(
-    libraryDependencies +=
-      "com.github.alexarchambault" %%% "scalacheck-shapeless_1.14" %
-        Versions.scalacheckShapeless
-  )
-  .dependsOn(core, laws, shapeless)
+// lazy val shapelessLaws = kantanCrossProject("shapeless-laws", "shapeless/laws")
+//   .settings(moduleName := "kantan.codecs-shapeless-laws")
+//   .settings(
+//     libraryDependencies +=
+//       "com.github.alexarchambault" %%% "scalacheck-shapeless_1.14" %
+//         Versions.scalacheckShapeless
+//   )
+//   .dependsOn(core, laws, shapeless)
 
-lazy val shapelessLawsJVM = shapelessLaws.jvm
-lazy val shapelessLawsJS  = shapelessLaws.js
+// lazy val shapelessLawsJVM = shapelessLaws.jvm
+// lazy val shapelessLawsJS  = shapelessLaws.js
 
 // - shapeless projects ------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------

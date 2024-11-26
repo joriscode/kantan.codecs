@@ -16,8 +16,8 @@
 
 package kantan.codecs
 
-import imp.summon
-import scala.language.experimental.macros
+// import imp.summon
+// import scala.language.experimental.macros
 
 /** Type class that represents data types that have an "empty" value.
   *

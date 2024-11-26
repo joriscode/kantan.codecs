@@ -16,8 +16,8 @@
 
 package kantan.codecs.error
 
-import imp.summon
-import scala.language.experimental.macros
+// import imp.summon
+// import scala.language.experimental.macros
 
 import kantan.codecs.ResultCompanion
 
@@ -50,7 +50,7 @@ trait IsError[E] extends Serializable { self =>
 object IsError {
 
   /** Summons an implicit instance of `IsError[A]` if one is found in scope, fails compilation otherwise. */
-  def apply[A](implicit ev: IsError[A]): IsError[A] = macro imp.summon[IsError[A]]
+  def apply[A](implicit ev: IsError[A]): IsError[A] = ev //macro imp.summon[IsError[A]]
 
   /** Default instance for `Exception.` */
   implicit val exceptionIsError: IsError[Exception] = new IsError[Exception] {

@@ -19,8 +19,8 @@ package kantan.codecs
 import kantan.codecs.error.IsError
 import kantan.codecs.export.DerivedDecoder
 // import imp.imp
-import imp.summon
-import scala.language.experimental.macros
+// import imp.summon
+// import scala.language.experimental.macros
 
 /** Type class for types that can be decoded from other types.
   *

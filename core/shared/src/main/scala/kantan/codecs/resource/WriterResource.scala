@@ -16,8 +16,8 @@
 
 package kantan.codecs.resource
 
-import imp.summon
-import scala.language.experimental.macros
+// import imp.summon
+// import scala.language.experimental.macros
 
 /** Provides instance summoning methods for [[WriterResource]]. */
 object WriterResource {

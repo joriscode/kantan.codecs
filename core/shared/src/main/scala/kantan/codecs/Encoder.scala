@@ -16,8 +16,8 @@
 
 package kantan.codecs
 
-import imp.summon
-import scala.language.experimental.macros
+// import imp.summon
+// import scala.language.experimental.macros
 
 import kantan.codecs.export.DerivedEncoder
 
