@@ -17,6 +17,7 @@
 package kantan.codecs.resource
 
 import kantan.codecs.collection.Factory
+
 import scala.annotation.unchecked.{uncheckedVariance => uV}
 import scala.collection.mutable.Buffer
 import scala.reflect.ClassTag
@@ -43,7 +44,7 @@ trait VersionSpecificResourceIterator[+A] { self: ResourceIterator[A] =>
   def toSet[AA >: A]: Set[AA]                                = toIterator.toSet
   def toVector: Vector[A]                                    = to[Vector]
   def toTraversable: Traversable[A]                          = to[Traversable]
-  def toStream: Stream[A]                                    = if(hasNext) Stream.cons(next(), toStream) else Stream.empty
+  def toStream: Stream[A] = if(hasNext) Stream.cons(next(), toStream) else Stream.empty
   def toIterator: Iterator[A] = new Iterator[A] {
     override def hasNext: Boolean = self.hasNext
     override def next(): A        = self.next()

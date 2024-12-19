@@ -16,9 +16,12 @@
 
 package kantan.codecs.scalaz.laws.discipline
 
-import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
-import org.scalacheck.{Arbitrary, Cogen}
-import scalaz.{\/, Maybe}
+import kantan.codecs.laws.CodecValue.IllegalValue
+import kantan.codecs.laws.CodecValue.LegalValue
+import org.scalacheck.Arbitrary
+import org.scalacheck.Cogen
+import scalaz.Maybe
+import scalaz.\/
 import scalaz.scalacheck.{ScalazArbitrary => SA}
 
 object arbitrary extends ArbitraryInstances
@@ -39,23 +42,23 @@ trait ArbitraryInstances extends kantan.codecs.laws.discipline.ArbitraryInstance
   // - CodecValue instances --------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------------
 
-  implicit def arbLegalMaybe[E, D, T](
-    implicit al: Arbitrary[LegalValue[E, Option[D], T]]
+  implicit def arbLegalMaybe[E, D, T](implicit
+    al: Arbitrary[LegalValue[E, Option[D], T]]
   ): Arbitrary[LegalValue[E, Maybe[D], T]] =
     Arbitrary(al.arbitrary.map(_.mapDecoded(v => Maybe.fromOption(v))))
 
-  implicit def arbIllegalMaybe[E, D, T](
-    implicit al: Arbitrary[IllegalValue[E, Option[D], T]]
+  implicit def arbIllegalMaybe[E, D, T](implicit
+    al: Arbitrary[IllegalValue[E, Option[D], T]]
   ): Arbitrary[IllegalValue[E, Maybe[D], T]] =
     Arbitrary(al.arbitrary.map(_.mapDecoded(v => Maybe.fromOption(v))))
 
-  implicit def arbLegalDisjunction[E, DL, DR, T](
-    implicit a: Arbitrary[LegalValue[E, Either[DL, DR], T]]
+  implicit def arbLegalDisjunction[E, DL, DR, T](implicit
+    a: Arbitrary[LegalValue[E, Either[DL, DR], T]]
   ): Arbitrary[LegalValue[E, DL \/ DR, T]] =
     Arbitrary(a.arbitrary.map(_.mapDecoded(v => \/.fromEither(v))))
 
-  implicit def arbIllegalDisjunction[E, DL, DR, T](
-    implicit a: Arbitrary[IllegalValue[E, Either[DL, DR], T]]
+  implicit def arbIllegalDisjunction[E, DL, DR, T](implicit
+    a: Arbitrary[IllegalValue[E, Either[DL, DR], T]]
   ): Arbitrary[IllegalValue[E, DL \/ DR, T]] =
     Arbitrary(a.arbitrary.map(_.mapDecoded(v => \/.fromEither(v))))
 

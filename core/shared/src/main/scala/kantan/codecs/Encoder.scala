@@ -20,9 +20,12 @@ import kantan.codecs.export.DerivedEncoder
 
 /** Type class for types that can be encoded into others.
   *
-  * @tparam E encoded type - what to encode to.
-  * @tparam D decoded type - what to encode from.
-  * @tparam T tag type.
+  * @tparam E
+  *   encoded type - what to encode to.
+  * @tparam D
+  *   decoded type - what to encode from.
+  * @tparam T
+  *   tag type.
   */
 trait Encoder[E, D, T] extends Serializable {
 
@@ -64,8 +67,8 @@ object Encoder {
   implicit def optionalEncoder[E: Optional, D, T](implicit ea: Encoder[E, D, T]): Encoder[E, Option[D], T] =
     Encoder.from(_.map(ea.encode).getOrElse(Optional[E].empty))
 
-  implicit def eitherEncoder[E, D1, D2, T](
-    implicit ea: Encoder[E, D1, T],
+  implicit def eitherEncoder[E, D1, D2, T](implicit
+    ea: Encoder[E, D1, T],
     eb: Encoder[E, D2, T]
   ): Encoder[E, Either[D1, D2], T] =
     Encoder.from {

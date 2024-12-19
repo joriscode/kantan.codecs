@@ -17,16 +17,17 @@
 package kantan.codecs.collection
 
 import scala.collection.generic.CanBuildFrom
-import scala.collection.immutable.{Queue, TreeSet}
+import scala.collection.immutable.Queue
+import scala.collection.immutable.TreeSet
 import scala.collection.mutable
 import scala.reflect.ClassTag
 
 /** Provides ways to create instances of `Builder` for arbitrary collection types.
   *
-  * This is a bit like `CanBuildFrom` (and instances of [[Factory]] can be derived automatically for any type that
-  * has a `CanBuildFrom`), but simpler (no `From` type parameter, no variance, ...) and with one critical difference:
-  * all the default instances are `Serializable`, meaning that type classes that depend on `Factory` can be
-  * used with Apache Spark and other framework that, unfortunately, rely on serialization.
+  * This is a bit like `CanBuildFrom` (and instances of [[Factory]] can be derived automatically for any type that has a
+  * `CanBuildFrom`), but simpler (no `From` type parameter, no variance, ...) and with one critical difference: all the
+  * default instances are `Serializable`, meaning that type classes that depend on `Factory` can be used with Apache
+  * Spark and other framework that, unfortunately, rely on serialization.
   */
 trait Factory[A, C] {
   def newBuilder: mutable.Builder[A, C]

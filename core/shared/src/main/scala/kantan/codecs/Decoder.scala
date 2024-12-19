@@ -21,10 +21,14 @@ import kantan.codecs.export.DerivedDecoder
 
 /** Type class for types that can be decoded from other types.
   *
-  * @tparam E encoded type - what to decode from.
-  * @tparam D decoded type - what to decode to.
-  * @tparam F failure type - how to represent errors.
-  * @tparam T tag type - used to specialise decoder instances, and usually where default implementations are declared.
+  * @tparam E
+  *   encoded type - what to decode from.
+  * @tparam D
+  *   decoded type - what to decode to.
+  * @tparam F
+  *   failure type - how to represent errors.
+  * @tparam T
+  *   tag type - used to specialise decoder instances, and usually where default implementations are declared.
   */
 trait Decoder[E, D, F, T] extends Serializable {
   // - Decoding --------------------------------------------------------------------------------------------------------
@@ -61,9 +65,9 @@ trait Decoder[E, D, F, T] extends Serializable {
 
   /** Creates a new [[Decoder]] instance by transforming raw results with the specified function.
     *
-    * Most of the time, other combinators such as [[map]] should be preferred. [[andThen]] is mostly useful when
-    * one needs to turn failures into successes, and even then, [[recover]] or [[recoverWith]] are probably more
-    * directly useful.
+    * Most of the time, other combinators such as [[map]] should be preferred. [[andThen]] is mostly useful when one
+    * needs to turn failures into successes, and even then, [[recover]] or [[recoverWith]] are probably more directly
+    * useful.
     */
   def andThen[FF, DD](f: Either[F, D] => Either[FF, DD]): Decoder[E, DD, FF, T] = Decoder.from(e => f(decode(e)))
 
@@ -184,8 +188,8 @@ trait DecoderCompanion[E, F, T] extends Serializable {
 
   /** Creates a new [[Decoder]] instance from the specified alternatives.
     *
-    * When decoding, each of the specified decoders will be attempted. The result will be the first success if found,
-    * or the last failure otherwise.
+    * When decoding, each of the specified decoders will be attempted. The result will be the first success if found, or
+    * the last failure otherwise.
     */
   @inline def oneOf[D](ds: Decoder[E, D, F, T]*)(implicit i: IsError[F]): Decoder[E, D, F, T] = Decoder.oneOf(ds: _*)
 }
@@ -214,16 +218,16 @@ object Decoder {
     }
 
   /** Provides a [[Decoder]] instance for `Either[A, B]`, provided both `A` and `B` have a [[Decoder]] instance. */
-  implicit def eitherDecoder[E, D1, D2, F, T](
-    implicit d1: Decoder[E, D1, F, T],
+  implicit def eitherDecoder[E, D1, D2, F, T](implicit
+    d1: Decoder[E, D1, F, T],
     d2: Decoder[E, D2, F, T]
   ): Decoder[E, Either[D1, D2], F, T] =
     d1.map(Left.apply).orElse(d2.map(Right.apply))
 
   /** Creates a new decoder using all specified values.
     *
-    * The generated decoder will try each of the specified decoders in turn, and return either the first success or,
-    * if none is found, the last failure.
+    * The generated decoder will try each of the specified decoders in turn, and return either the first success or, if
+    * none is found, the last failure.
     */
   @SuppressWarnings(Array("org.wartremover.warts.StringPlusAny"))
   def oneOf[E, D, F: IsError, T](ds: Decoder[E, D, F, T]*): Decoder[E, D, F, T] =

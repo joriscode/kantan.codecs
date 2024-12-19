@@ -16,7 +16,8 @@
 
 package kantan.codecs.scalaz.laws.discipline
 
-import kantan.codecs.{Decoder, Encoder}
+import kantan.codecs.Decoder
+import kantan.codecs.Encoder
 import org.scalacheck.Arbitrary
 import scalaz.Equal
 

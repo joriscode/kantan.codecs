@@ -16,7 +16,9 @@
 
 package kantan.codecs.resource.bom
 
-import java.io.{OutputStream, OutputStreamWriter, Writer}
+import java.io.OutputStream
+import java.io.OutputStreamWriter
+import java.io.Writer
 import scala.io.Codec
 
 object BomWriter {

@@ -16,10 +16,20 @@
 
 package kantan.codecs.scalaz
 
-import kantan.codecs.{Decoder, Encoder}
+import kantan.codecs.Decoder
+import kantan.codecs.Encoder
 import kantan.codecs.error.Error
 import kantan.codecs.strings.DecodeError
-import scalaz.{-\/, \/, \/-, Contravariant, Cord, Equal, Maybe, MonadError, Plus, Show}
+import scalaz.-\/
+import scalaz.Contravariant
+import scalaz.Cord
+import scalaz.Equal
+import scalaz.Maybe
+import scalaz.MonadError
+import scalaz.Plus
+import scalaz.Show
+import scalaz.\/
+import scalaz.\/-
 
 trait DecoderInstances {
 
@@ -53,14 +63,14 @@ trait CommonInstances {
 
   implicit def isErrorShow[E <: Error]: Show[E] = Show.show(e => Cord(e.toString))
 
-  implicit def disjunctionDecoder[E, DA, DB, F, T](
-    implicit da: Decoder[E, DA, F, T],
+  implicit def disjunctionDecoder[E, DA, DB, F, T](implicit
+    da: Decoder[E, DA, F, T],
     db: Decoder[E, DB, F, T]
   ): Decoder[E, DA \/ DB, F, T] =
     da.map(-\/.apply[DA, DB]).orElse(db.map(\/-.apply[DA, DB]))
 
-  implicit def disjunctionEncoder[E, DA, DB, T](
-    implicit ea: Encoder[E, DA, T],
+  implicit def disjunctionEncoder[E, DA, DB, T](implicit
+    ea: Encoder[E, DA, T],
     eb: Encoder[E, DB, T]
   ): Encoder[E, DA \/ DB, T] =
     Encoder.from {

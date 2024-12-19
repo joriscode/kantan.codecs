@@ -17,7 +17,10 @@
 package kantan.codecs
 
 import kantan.codecs.error.IsError
-import scala.util.{Failure, Success, Try}
+
+import scala.util.Failure
+import scala.util.Success
+import scala.util.Try
 
 /** Provides trait that result companion object can extend.
   *
@@ -68,7 +71,7 @@ object ResultCompanion {
   /** Similar to [[WithDefault]], but uses [[error.IsError IsError]] to deal with error cases. */
   abstract class WithError[F: IsError] extends WithDefault[F] {
 
-    override def fromThrowable(t: Throwable) = IsError[F].fromThrowable(t)
+    override def fromThrowable(t: Throwable): F = IsError[F].fromThrowable(t)
 
   }
 
