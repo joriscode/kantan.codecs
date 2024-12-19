@@ -16,19 +16,26 @@
 
 package kantan.codecs.resource
 
-import java.io.{Closeable => _}
-import java.io.{ByteArrayInputStream, InputStream, OutputStream}
-import java.io.{InputStreamReader, OutputStreamWriter, Reader, StringReader, Writer}
+import java.io.ByteArrayInputStream
+import java.io.InputStream
+import java.io.InputStreamReader
+import java.io.OutputStream
+import java.io.OutputStreamWriter
+import java.io.Reader
+import java.io.StringReader
+import java.io.Writer
 import scala.io.Codec
 
 /** Represents a resource that can be opened and worked on.
   *
   * The purpose of this trait is to abstract over the notion of "things that can be opened", such as files, URLs...
-  * Default instances are provided for `java.io` types - `java.io.File`, for example, has instances for both
-  * opening it for reading and for writing.
+  * Default instances are provided for `java.io` types - `java.io.File`, for example, has instances for both opening it
+  * for reading and for writing.
   *
-  * @tparam I type of the resource itself (eg `java.io.File`).
-  * @tparam R type of the opened resource (eg `java.io.InputStream`)
+  * @tparam I
+  *   type of the resource itself (eg `java.io.File`).
+  * @tparam R
+  *   type of the opened resource (eg `java.io.InputStream`)
   */
 trait Resource[I, R] { self =>
 
