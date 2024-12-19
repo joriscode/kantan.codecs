@@ -23,3 +23,5 @@ jobs:
           author-name: Scala Steward
           author-email: 2750485+joriscode@users.noreply.github.com
           branches: ${{ github.event_name == 'workflow_dispatch' && github.ref_name || 'master' }}
+    env:
+      GITHUB_TOKEN: ${{ secrets.SCALA_STEWARD_REPO_TOKEN }}
