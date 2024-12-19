@@ -16,7 +16,10 @@
 
 package kantan.codecs.laws
 
-import java.io.{ByteArrayInputStream, ByteArrayOutputStream, ObjectInputStream, ObjectOutputStream}
+import java.io.ByteArrayInputStream
+import java.io.ByteArrayOutputStream
+import java.io.ObjectInputStream
+import java.io.ObjectOutputStream
 import scala.util.Try
 
 /** Laws for serializable type class instances. */

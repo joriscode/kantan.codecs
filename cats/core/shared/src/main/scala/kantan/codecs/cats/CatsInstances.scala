@@ -16,17 +16,23 @@
 
 package kantan.codecs.cats
 
-import cats.{Contravariant, Eq, MonadError, SemigroupK, Show}
-import kantan.codecs.{Decoder, Encoder}
+import cats.Contravariant
+import cats.Eq
+import cats.MonadError
+import cats.SemigroupK
+import cats.Show
+import kantan.codecs.Decoder
+import kantan.codecs.Encoder
 import kantan.codecs.error.Error
 import kantan.codecs.strings.DecodeError
+
 import scala.annotation.tailrec
 
 trait DecoderInstances {
 
   implicit final def decoderInstances[E, F, T]
     : SemigroupK[({ type L[A] = Decoder[E, A, F, T] })#L] with MonadError[({ type L[A] = Decoder[E, A, F, T] })#L, F] =
-    new SemigroupK[({ type L[A]    = Decoder[E, A, F, T] })#L]
+    new SemigroupK[({ type L[A] = Decoder[E, A, F, T] })#L]
       with MonadError[({ type L[A] = Decoder[E, A, F, T] })#L, F] {
 
       final def combineK[D](x: Decoder[E, D, F, T], y: Decoder[E, D, F, T]): Decoder[E, D, F, T] = x.orElse(y)
