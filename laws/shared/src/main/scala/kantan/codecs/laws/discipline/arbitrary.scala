@@ -24,7 +24,6 @@ import kantan.codecs.{Decoder, Encoder}
 import kantan.codecs.laws.CodecValue
 import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
 import kantan.codecs.strings.DecodeError
-import org.scalacheck.{ArbitraryArities => _}
 import org.scalacheck.{Arbitrary, Cogen, Gen}
 import org.scalacheck.Arbitrary.{arbitrary => arb}
 import scala.util.Try

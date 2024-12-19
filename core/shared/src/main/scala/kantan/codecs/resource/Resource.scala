@@ -16,7 +16,6 @@
 
 package kantan.codecs.resource
 
-import java.io.{Closeable => _}
 import java.io.{ByteArrayInputStream, InputStream, OutputStream}
 import java.io.{InputStreamReader, OutputStreamWriter, Reader, StringReader, Writer}
 import scala.io.Codec
