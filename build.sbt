@@ -1,4 +1,4 @@
-ThisBuild / kantanProject := "codecs"
+ThisBuild / kantanProject := "kantan.codecs"
 ThisBuild / startYear     := Some(2016)
 
 lazy val jsModules: Seq[ProjectReference] = Seq(
