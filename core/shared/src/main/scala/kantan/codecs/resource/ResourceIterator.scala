@@ -17,6 +17,7 @@
 package kantan.codecs.resource
 
 import kantan.codecs.ResultCompanion
+
 import scala.annotation.tailrec
 import scala.util.Try
 
@@ -33,9 +34,9 @@ import scala.util.Try
   * [[ResourceIterator.drop dropping]] elements.
   *
   * You should be able to express most common causes for not reading the entire stream through standard combinators. For
-  * example, "take the first `n` elements" is `take(n)`, or "take all odd elements" is `filter(_ % 2 == 0)`. This
-  * allows you to ignore the fact that the underlying resource needs to be closed. Should you ever find youself in a
-  * situation when you just want to stop, however, [[ResourceIterator.close()*]] is available.
+  * example, "take the first `n` elements" is `take(n)`, or "take all odd elements" is `filter(_ % 2 == 0)`. This allows
+  * you to ignore the fact that the underlying resource needs to be closed. Should you ever find youself in a situation
+  * when you just want to stop, however, [[ResourceIterator.close()*]] is available.
   */
 @SuppressWarnings(
   Array(
@@ -94,15 +95,16 @@ trait ResourceIterator[+A] extends VersionSpecificResourceIterator[A] with java.
     // close then, which would end up ignoring calls to `withClose`.
     if(isClosed) false
     else {
-      if(try {
-           checkNext
-         }
-         catch {
-           case scala.util.control.NonFatal(e) =>
-             lastError = Some(e)
-             close()
-             true
-         }) true
+      if(
+        try
+          checkNext
+        catch {
+          case scala.util.control.NonFatal(e) =>
+            lastError = Some(e)
+            close()
+            true
+        }
+      ) true
       else {
         doClose()
         false
@@ -403,11 +405,13 @@ trait ResourceIterator[+A] extends VersionSpecificResourceIterator[A] with java.
     * This is achieved by catching all non-fatal exceptions and passing them to the specified `f` to turn into a failure
     * type.
     *
-    * This is meant to be used by the various kantan.* libraries that offer stream-like APIs: it allows them to wrap
-    * IO in a safe iterator and focus on dealing with decoding.
+    * This is meant to be used by the various kantan.* libraries that offer stream-like APIs: it allows them to wrap IO
+    * in a safe iterator and focus on dealing with decoding.
     *
-    * @param empty error value for when `next` is called on an empty iterator.
-    * @param f     used to turn non-fatal exceptions into error types.
+    * @param empty
+    *   error value for when `next` is called on an empty iterator.
+    * @param f
+    *   used to turn non-fatal exceptions into error types.
     */
   def safe[F](empty: => F)(f: Throwable => F): ResourceIterator[Either[F, A]] = new ResourceIterator[Either[F, A]] {
     override def readNext() =

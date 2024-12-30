@@ -17,7 +17,8 @@
 package kantan.codecs.laws
 
 import kantan.codecs.Decoder
-import kantan.codecs.laws.CodecValue.{IllegalValue, LegalValue}
+import kantan.codecs.laws.CodecValue.IllegalValue
+import kantan.codecs.laws.CodecValue.LegalValue
 import org.scalacheck.Prop
 
 trait DecoderLaws[E, D, F, T] {
