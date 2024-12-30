@@ -22,8 +22,6 @@ lazy val jvmModules: Seq[ProjectReference] = Seq(
   coreJVM,
   enumeratumJVM,
   enumeratumLawsJVM,
-  // java8,
-  // java8Laws,
   lawsJVM,
   libra,
   libraLaws,
@@ -50,7 +48,7 @@ lazy val docs = project
     ScalaUnidoc / unidoc / unidocProjectFilter :=
       inAnyProject -- inProjects(jsModules: _*)
   )
-  .dependsOn(catsJVM, coreJVM, enumeratumJVM, libra, refinedJVM, scalazJVM, shapelessJVM /*, java8*/ )
+  .dependsOn(catsJVM, coreJVM, enumeratumJVM, libra, refinedJVM, scalazJVM, shapelessJVM)
 
 // - core projects -----------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
@@ -116,26 +114,6 @@ lazy val catsLaws = kantanCrossProject("cats-laws")
 
 lazy val catsLawsJVM = catsLaws.jvm
 lazy val catsLawsJS  = catsLaws.js
-
-// // - java8 projects ----------------------------------------------------------------------------------------------------
-// // ---------------------------------------------------------------------------------------------------------------------
-// lazy val java8 = Project(id = "java8", base = file("java8/core"))
-//   .settings(moduleName := "kantan.codecs-java8", name := "java8")
-//   .dependsOn(coreJVM)
-//   .settings(
-//     libraryDependencies ++=
-//       Seq("org.scalatest" %% "scalatest" % Versions.scalatest % Test)
-//   )
-
-// lazy val java8Laws = Project(id = "java8-laws", base = file("java8/laws"))
-//   .settings(moduleName := "kantan.codecs-java8-laws", name := "java8-laws")
-//   .dependsOn(coreJVM, lawsJVM, java8)
-//   .settings(
-//     libraryDependencies ++= Seq(
-//       "org.scala-lang.modules" %% "scala-collection-compat" %
-//         Versions.collectionCompat
-//     )
-//   )
 
 // - scalaz projects ---------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
