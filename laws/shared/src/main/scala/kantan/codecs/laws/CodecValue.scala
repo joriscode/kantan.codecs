@@ -26,23 +26,30 @@ sealed abstract class CodecValue[E, D, T] extends Product with Serializable {
   def tag[TT]: CodecValue[E, D, TT]
 
   def isLegal: Boolean
-  def isIllegal: Boolean = !isLegal
+  def isIllegal: Boolean =
+    !isLegal
 }
 
 object CodecValue {
   final case class LegalValue[E, D, T](encoded: E, decoded: D) extends CodecValue[E, D, T] {
-    override def mapDecoded[DD](f: D => DD) = LegalValue(encoded, f(decoded))
-    override def mapEncoded[EE](f: E => EE) = LegalValue(f(encoded), decoded)
+    override def mapDecoded[DD](f: D => DD) =
+      LegalValue(encoded, f(decoded))
+    override def mapEncoded[EE](f: E => EE) =
+      LegalValue(f(encoded), decoded)
     @SuppressWarnings(Array("org.wartremover.warts.AsInstanceOf"))
-    override def tag[TT] = this.asInstanceOf[LegalValue[E, D, TT]]
+    override def tag[TT]: CodecValue[E, D, TT] =
+      this.asInstanceOf[LegalValue[E, D, TT]]
     override val isLegal = true
   }
 
   final case class IllegalValue[E, D, T](encoded: E) extends CodecValue[E, D, T] {
-    override def mapDecoded[DD](f: D => DD) = IllegalValue(encoded)
-    override def mapEncoded[EE](f: E => EE) = IllegalValue(f(encoded))
+    override def mapDecoded[DD](f: D => DD) =
+      IllegalValue(encoded)
+    override def mapEncoded[EE](f: E => EE) =
+      IllegalValue(f(encoded))
     @SuppressWarnings(Array("org.wartremover.warts.AsInstanceOf"))
-    override def tag[TT] = this.asInstanceOf[IllegalValue[E, D, TT]]
+    override def tag[TT]: CodecValue[E, D, TT] =
+      this.asInstanceOf[IllegalValue[E, D, TT]]
     override val isLegal = false
   }
 }
