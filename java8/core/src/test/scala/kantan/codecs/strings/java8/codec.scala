@@ -24,11 +24,19 @@ object codec {
   implicit def arbLegalValue[D](
     implicit arb: Arbitrary[LegalValue[String, D, kantan.codecs.strings.codecs.type]]
   ): Arbitrary[LegalValue[String, D, codec.type]] =
-    Arbitrary(arb.arbitrary.map(_.tag[codec.type]))
+    Arbitrary(arb.arbitrary.map(_.tag[codec.type]).map {
+      case IllegalValue(_) =>
+        throw new RuntimeException("arbLegalValue generated an IllegalValue type instead of LegalValue")
+      case value: LegalValue[_, _, _] => value
+    })
 
   implicit def arbIllegalValue[D](
     implicit arb: Arbitrary[IllegalValue[String, D, kantan.codecs.strings.codecs.type]]
   ): Arbitrary[IllegalValue[String, D, codec.type]] =
-    Arbitrary(arb.arbitrary.map(_.tag[codec.type]))
+    Arbitrary(arb.arbitrary.map(_.tag[codec.type]).map {
+      case value: IllegalValue[_, _, _] => value
+      case LegalValue(_, _) =>
+        throw new RuntimeException("arbIllegalValue generated an LegalValue type instead of IllegalValue")
+    })
 
 }

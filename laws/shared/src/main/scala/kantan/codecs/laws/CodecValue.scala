@@ -17,6 +17,8 @@
 package kantan.codecs.laws
 
 // TODO: investigate what type variance annotations can be usefully applied to CodecValue.
+// then fix the usage in java8/core/src/test/scala/kantan/codecs/strings/java8/codec.scala
+// scalafix:off ExplicitResultTypes; CodecValue requires variance
 sealed abstract class CodecValue[E, D, T] extends Product with Serializable {
   def encoded: E
   def mapEncoded[EE](f: E => EE): CodecValue[EE, D, T]
@@ -44,3 +46,4 @@ object CodecValue {
     override val isLegal = false
   }
 }
+// scalafix:on
