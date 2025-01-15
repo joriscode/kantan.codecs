@@ -21,8 +21,8 @@ import org.scalacheck.Arbitrary
 
 object codec {
 
-  implicit def arbLegalValue[D](
-    implicit arb: Arbitrary[LegalValue[String, D, kantan.codecs.strings.codecs.type]]
+  implicit def arbLegalValue[D](implicit
+    arb: Arbitrary[LegalValue[String, D, kantan.codecs.strings.codecs.type]]
   ): Arbitrary[LegalValue[String, D, codec.type]] =
     Arbitrary(arb.arbitrary.map(_.tag[codec.type]).map {
       case IllegalValue(_) =>
@@ -30,8 +30,8 @@ object codec {
       case value: LegalValue[_, _, _] => value
     })
 
-  implicit def arbIllegalValue[D](
-    implicit arb: Arbitrary[IllegalValue[String, D, kantan.codecs.strings.codecs.type]]
+  implicit def arbIllegalValue[D](implicit
+    arb: Arbitrary[IllegalValue[String, D, kantan.codecs.strings.codecs.type]]
   ): Arbitrary[IllegalValue[String, D, codec.type]] =
     Arbitrary(arb.arbitrary.map(_.tag[codec.type]).map {
       case value: IllegalValue[_, _, _] => value
